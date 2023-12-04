@@ -10,9 +10,9 @@ import Physics from '../engine/physics.js';
 // Import the Images object from the 'engine' directory. This object contains all the game's image resources
 import {Images} from '../engine/resources.js';
 
-// Import the Player and Platform classes from the current directory
+// Import the Player and Tile classes from the current directory
 import Player from './player.js';
-import Platform from './platform.js';
+import Tile from './tile.js';
 
 // Define a new class, Enemy, which extends (i.e., inherits from) GameObject
 class Enemy extends GameObject {
@@ -73,16 +73,16 @@ class Enemy extends GameObject {
 			player.collidedWithEnemy();
 		}
 
-		// Check if the enemy is colliding with any platforms
-		const platforms = this.game.gameObjects.filter(obj => obj instanceof Platform);
-		this.isOnPlatform = false;
-		for (const platform of platforms) {
-			if (physics.isColliding(platform.getComponent(Physics))) {
-				// If it is, stop its vertical movement and position it on top of the platform
+		// Check if the enemy is colliding with any tiles
+		const tiles = this.game.gameObjects.filter(obj => obj instanceof Tile);
+		this.isOnTile = false;
+		for (const tile of tiles) {
+			if (physics.isColliding(tile.getComponent(Physics))) {
+				// If it is, stop its vertical movement and position it on top of the tile
 				physics.velocity.y = 0;
 				physics.acceleration.y = 0;
-				this.y = platform.y - this.getComponent(Renderer).height;
-				this.isOnPlatform = true;
+				this.y = tile.y - this.getComponent(Renderer).height;
+				this.isOnTile = true;
 			}
 		}
 

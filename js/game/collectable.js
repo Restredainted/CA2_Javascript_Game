@@ -7,7 +7,7 @@ import Renderer from '../engine/renderer.js';
 // Import the Physics class from the 'engine' directory
 import Physics from '../engine/physics.js';
 
-import Platform from './platform.js';
+import Tile from './tile.js';
 
 // Define a new class, collectable, which extends (i.e., inherits from) GameObject
 class Collectable extends GameObject {
@@ -44,20 +44,20 @@ class Collectable extends GameObject {
 		const physics = this.getComponent(Physics); // Get physics component
 
 		// Taken and modified from player script. 
-		this.isOnPlatform = false;  // Reset this before checking collisions with platforms
-		const platforms = this.game.gameObjects.filter(((obj) => obj instanceof Platform));
-		console.log(this.gameObject + "Collision");
+		//this.isOnGround = false;  // Reset this before checking collisions with tiles
+		const tiles = this.game.gameObjects.filter(((obj) => obj instanceof Tile));
+		//console.log(this.gameObject + "Collision");
 
-		for (const platform of platforms) {
+		for (const tile of tiles) {
 
-			console.log(this.gameObject + "Collision");
+			//console.log(this.gameObject + "Collision");
 
-			if (physics.isColliding(platform.getComponent(Physics))) {
+			if (physics.isColliding(tile.getComponent(Physics))) {
 
 				//console.log("Collectable collision");
 				physics.velocity.y = 0;
 				physics.acceleration.y = 0;
-				this.y = platform.y - this.renderer.height;
+				this.y = tile.y - this.renderer.height;
 
 			}
 		}

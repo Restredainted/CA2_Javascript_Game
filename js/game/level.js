@@ -3,7 +3,7 @@ import Game from '../engine/game.js';
 import Player from './player.js';
 import Enemy from './enemy.js';
 import PlayerUI from './playerUI.js';
-import Platform from './platform.js';
+import Tile from './tile.js';
 import Collectable from './collectable.js';
 import Gold from './gold.js';
 import Gem from './gem.js';
@@ -26,26 +26,26 @@ class Level extends Game {
 		// Set the game's camera target to the player
 		this.camera.target = player;
 
-		// Define the platform's width and the gap between platforms
-		const platformWidth = 200;
+		// Define the tile's width and the gap between tiles
+		const tileWidth = 200;
 		const gap = 100;
 
-		// Create platforms and add them to the game
-		const platforms = [
-			new Platform(0, this.canvas.height - 20, platformWidth, 20),
-			new Platform(platformWidth + gap, this.canvas.height - 20, platformWidth, 20),
-			new Platform(2 * (platformWidth + gap), this.canvas.height - 20, platformWidth, 20),
-			new Platform(3 * (platformWidth + gap), this.canvas.height - 30, platformWidth, 20),
-			new Platform(4 * (platformWidth + gap), this.canvas.height - 40, platformWidth, 20),
+		// Create tiles and add them to the game
+		const tiles = [
+			new Tile(0, this.canvas.height - 20, tileWidth, 20),
+			new Tile(tileWidth + gap, this.canvas.height - 20, tileWidth, 20),
+			new Tile(2 * (tileWidth + gap), this.canvas.height - 20, tileWidth, 20),
+			new Tile(3 * (tileWidth + gap), this.canvas.height - 30, tileWidth, 20),
+			new Tile(4 * (tileWidth + gap), this.canvas.height - 40, tileWidth, 20),
 		];
-		for (const platform of platforms) {
-			this.addGameObject(platform);
+		for (const tile of tiles) {
+			this.addGameObject(tile);
 		}
 
 		// Create enemies and add them to the game
 		this.addGameObject(new Enemy(50, this.canvas.height - 90));
-		this.addGameObject(new Enemy(platformWidth + gap + 50, this.canvas.height - 90));
-		this.addGameObject(new Enemy(2 * (platformWidth + gap) + 50, this.canvas.height - 90));
+		this.addGameObject(new Enemy(tileWidth + gap + 50, this.canvas.height - 90));
+		this.addGameObject(new Enemy(2 * (tileWidth + gap) + 50, this.canvas.height - 90));
 
 		// Create collectables and add them to the game
 		this.addGameObject(new Collectable(250, this.canvas.height - 100, 20, 20));

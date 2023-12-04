@@ -5,7 +5,7 @@ import Physics from '../engine/physics.js';
 import Input from '../engine/input.js';
 import { Images } from '../engine/resources.js';
 import Enemy from './enemy.js';
-import Platform from './platform.js';
+import Tile from './tile.js';
 import Collectable from './collectable.js';
 import ParticleSystem from '../engine/particleSystem.js';
 
@@ -22,7 +22,7 @@ class Player extends GameObject {
 		this.direction = 1;
 		this.lives = 3;
 		this.score = 0;
-		this.isOnPlatform = false;
+		this.isOnGround = false;
 		this.isJumping = false;
 		this.jumpForce = 500;
 		this.jumpTime = 0.3;
@@ -53,7 +53,7 @@ class Player extends GameObject {
 		}
 
 		// Handle player jumping
-		if (!this.isGamepadJump && input.isKeyDown('ArrowUp') && this.isOnPlatform) {
+		if (!this.isGamepadJump && input.isKeyDown('ArrowUp') && this.isOnGround) {
 		this.startJump();
 		}
 
@@ -78,16 +78,16 @@ class Player extends GameObject {
 			}
 		}
 
-		// Handle collisions with platforms
-		this.isOnPlatform = false;  // Reset this before checking collisions with platforms
-		const platforms = this.game.gameObjects.filter(((obj) => obj instanceof Platform) || ((obj) => obj instanceof Dirt));
-		for (const platform of platforms) {
-			if (physics.isColliding(platform.getComponent(Physics))) {
+		// Handle collisions with tiles
+		this.isOnGround = false;  // Reset this before checking collisions with tiles
+		const tiles = this.game.gameObjects.filter((obj) => obj instanceof Tile);
+		for (const tile of tiles) {
+			if (physics.isColliding(tile.getComponent(Physics))) {
 				if (!this.isJumping) {
 					physics.velocity.y = 0;
 					physics.acceleration.y = 0;
-					this.y = platform.y - this.renderer.height;
-					this.isOnPlatform = true;
+					this.y = tile.y - this.renderer.height;
+					this.isOnGround = true;
 				}
 			}
 		}
@@ -139,7 +139,7 @@ class Player extends GameObject {
 		}
 		
 		// Handle jump, using gamepad button 0 (typically the 'A' button on most gamepads)
-		if (input.isGamepadButtonDown(0) && this.isOnPlatform) {
+		if (input.isGamepadButtonDown(0) && this.isOnGround) {
 			this.isGamepadJump = true;
 			this.startJump();
 		}
@@ -147,12 +147,12 @@ class Player extends GameObject {
 	}
 
 	startJump() {
-		// Initiate a jump if the player is on a platform
-		if (this.isOnPlatform) { 
+		// Initiate a jump if the player is on a tile
+		if (this.isOnGround) { 
 			this.isJumping = true;
 			this.jumpTimer = this.jumpTime;
 			this.getComponent(Physics).velocity.y = -this.jumpForce;
-			this.isOnPlatform = false;
+			this.isOnGround = false;
 		}
 	}
 
@@ -196,7 +196,7 @@ class Player extends GameObject {
 		this.getComponent(Physics).velocity = { x: 0, y: 0 };
 		this.getComponent(Physics).acceleration = { x: 0, y: 0 };
 		this.direction = 1;
-		this.isOnPlatform = false;
+		this.isOnGround = false;
 		this.isJumping = false;
 		this.jumpTimer = 0;
 	}
