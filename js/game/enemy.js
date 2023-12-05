@@ -12,7 +12,7 @@ import {Images} from '../engine/resources.js';
 
 // Import the Player and Tile classes from the current directory
 import Player from './player.js';
-import Tile from './tile.js';
+import Tile from './Terrain/tile.js';
 
 // Define a new class, Enemy, which extends (i.e., inherits from) GameObject
 class Enemy extends GameObject {

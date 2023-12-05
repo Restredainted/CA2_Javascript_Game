@@ -5,7 +5,7 @@ import Physics from '../engine/physics.js';
 import Input from '../engine/input.js';
 import { Images } from '../engine/resources.js';
 import Enemy from './enemy.js';
-import Tile from './tile.js';
+import Tile from './Terrain/tile.js';
 import Collectable from './collectable.js';
 import ParticleSystem from '../engine/particleSystem.js';
 

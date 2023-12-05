@@ -7,7 +7,7 @@ import Renderer from '../engine/renderer.js';
 // Import the Physics class from the 'engine' directory
 import Physics from '../engine/physics.js';
 
-import Tile from './tile.js';
+import Tile from './Terrain/tile.js';
 
 // Define a new class, collectable, which extends (i.e., inherits from) GameObject
 class Collectable extends GameObject {
@@ -30,7 +30,7 @@ class Collectable extends GameObject {
 		// Add a new Physics component to this collectable. The physics component is responsible for handling the physics
 		// (like movement, collision detection, etc.). In this case, the collectable doesn't move,
 		// so the initial velocity, acceleration, and friction are all set to zero.
-		this.addComponent(new Physics({ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 15 }));
+		this.addComponent(new Physics({ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 500 }));
 
 		// Set the 'tag' property of this collectable. The tag is used to identify the type of GameObject
 		// (useful when checking collisions, for example)

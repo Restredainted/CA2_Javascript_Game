@@ -1,7 +1,7 @@
-import GameObject from "../engine/gameobject";
-import Component from "../engine/component";
-import Physics from "../engine/physics";
-import Renderer from "../engine/renderer";
+import GameObject from "../../engine/gameobject.js";
+import Component from "../../engine/component.js";
+import Physics from "../../engine/physics.js";
+import Renderer from "../../engine/renderer.js";
 
 
 /**

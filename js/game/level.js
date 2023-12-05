@@ -3,7 +3,7 @@ import Game from '../engine/game.js';
 import Player from './player.js';
 import Enemy from './enemy.js';
 import PlayerUI from './playerUI.js';
-import Tile from './tile.js';
+import Tile from './Terrain/tile.js';
 import Collectable from './collectable.js';
 import Gold from './gold.js';
 import Gem from './gem.js';
