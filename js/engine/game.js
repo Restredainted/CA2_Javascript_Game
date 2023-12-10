@@ -5,26 +5,26 @@ import {clamp} from './utilities.js';
 // The Game class is responsible for setting up and managing the main game loop.
 	class Game {
 	// The constructor initializes a new instance of the Game class.
-	constructor(canvasId) {
-		// The canvas HTML element where the game will be drawn.
-		this.canvas = document.getElementById(canvasId);
-		// The 2D rendering context for the canvas, which is used for drawing.
-		this.ctx = this.canvas.getContext('2d');
-		// An array to hold all the game objects that are currently in the game.
-		this.gameObjects = [];
-		// An array to hold game objects that are marked to be removed from the game.
-		this.gameObjectsToRemove = [];
-		// The time at which the last frame was rendered.
-		this.lastFrameTime = 0;
-		// The amount of time that passed between the last frame and the current frame.
-		this.deltaTime = 0;
-		// Adjust the size of the canvas to match the window size.
-		this.resizeCanvas();
-		// Add an event listener to resize the canvas whenever the window size changes.
-		window.addEventListener('resize', () => this.resizeCanvas());
-		// Instantiate a new camera without a target and with dimensions equal to the canvas size.
-		this.camera = new Camera(null, this.canvas.width, this.canvas.height);
-	}
+		constructor(canvasId) {
+			// The canvas HTML element where the game will be drawn.
+			this.canvas = document.getElementById(canvasId);
+			// The 2D rendering context for the canvas, which is used for drawing.
+			this.ctx = this.canvas.getContext('2d');
+			// An array to hold all the game objects that are currently in the game.
+			this.gameObjects = [];
+			// An array to hold game objects that are marked to be removed from the game.
+			this.gameObjectsToRemove = [];
+			// The time at which the last frame was rendered.
+			this.lastFrameTime = 0;
+			// The amount of time that passed between the last frame and the current frame.
+			this.deltaTime = 0;
+			// Adjust the size of the canvas to match the window size.
+			this.resizeCanvas();
+			// Add an event listener to resize the canvas whenever the window size changes.
+			window.addEventListener('resize', () => this.resizeCanvas());
+			// Instantiate a new camera without a target and with dimensions equal to the canvas size.
+			this.camera = new Camera(null, this.canvas.width, this.canvas.height);
+		}
 
 	// This method resizes the canvas to fill the window, with a small margin.
 	// Modified to force a 19:6 aspect ratio with minimum values allowed for height and therefore width. 

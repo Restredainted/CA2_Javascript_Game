@@ -3,10 +3,11 @@ import Tile from './tile.js';
 
 class Dirt extends Tile {
 
-    Constructor(x, y, color = 'brown') {
-        super (x, y, Images.dirt.width, Images.dirt.height) 
+    Constructor(x, y) {
+        super (x, y, Images.dirt.width, Images.dirt.height, color, Images.dirt) 
 
-        this.renderer = new Renderer(color, Images.dirt.width, Images.dirt.height, Images.dirt);
+        //this.renderer = new Renderer(color, 8, 8, Images.dirt);
+        console.log(Images.dirt.width, Images.dirt.height);
     }
 }
 
