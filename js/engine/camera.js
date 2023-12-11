@@ -1,5 +1,7 @@
 // This class relies on the Renderer, which is a separate module and needs to be imported.
+import Game from "./game.js";
 import Renderer from "./renderer.js";
+import {clamp} from './utilities.js';
 
 // The Camera class is responsible for tracking a target object and positioning the camera view based on the target's position.
 class Camera {
@@ -28,7 +30,7 @@ class Camera {
 		// this.x = this.target.x + this.target.getComponent(Renderer).width / 2 - this.width / 2;
 		
 		// The y-coordinate of the camera is set in the same way, but with the target's and camera's heights instead of their widths.
-		this.y = this.target.y + this.target.getComponent(Renderer).height / 2 - this.height / 2;
+		this.y = clamp((this.target.y + this.target.getComponent(Renderer).height / 2 - this.height / 2), 0, this.target.game.canvas.height * 4);
 	}
 }
 

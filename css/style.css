@@ -9,7 +9,7 @@ body {
 
 canvas {
     display: block;
-    background-color: black;
+    background-color: rgb(135, 206, 235);
     border: 1px solid red;
 
 }

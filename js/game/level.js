@@ -45,32 +45,35 @@ class Level extends Game {
 
 				for (let j = 0; j <= (this.canvas.height * 4) / 32 ; j++) {
 
+					let newX = 32 * i;
+					let newY = (32 * j) + (this.canvas.height / 2);
+
 					rareGen = Math.random(0, 10);
-					console.log(rareGen);
+					//console.log(rareGen);
 
 					// Generate Borders along the 2 vertical edges and bottom of the level.
-					if (i == 0 || i == (this.canvas.width / 32) - 1 || j == (this.canvas.height /32) - 1) {
+					if (i == 0 || i == (this.canvas.width / 32) - 1 || j == ((this.canvas.height * 4) / 32)) {
 
-						dirtTiles.push(new Rock(32 * i, (32 * j) + this.canvas.height / 2));
+						dirtTiles.push(new Rock(newX, newY));
 					}
 
 					else if (j == 0) {
 						 
-						dirtTiles.push(new Grass(32 * i, (32 * j) + this.canvas.height / 2));
+						dirtTiles.push(new Grass(newX, newY));
 					}
 
 					else if (rareGen >= gemRate) {
-						dirtTiles.push(new GemVein(32 * i, (32 * j) + this.canvas.height / 2));
+						dirtTiles.push(new GemVein(newX, newY));
 					}
 
 					else if (rareGen >= goldRate) {
 						console.log("Gold Spawned");
-						dirtTiles.push(new GoldVein(32 * i, (32 * j) + this.canvas.height / 2));
+						dirtTiles.push(new GoldVein(newX, newY));
 					}
 
 					else {
 
-						dirtTiles.push(new Dirt(32 * i, (32 * j) + this.canvas.height / 2));
+						dirtTiles.push(new Dirt(newX, newY));
 					}
 				}
 			}
