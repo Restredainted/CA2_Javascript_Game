@@ -4,7 +4,8 @@ const Images = {
 	enemy: new Image(), // The Image instance for the enemy.
 	coin: new Image(), // The Image instance for gold coins.
 	gem: new Image(), // The Image instance for gems.
-	dirt: new Image(), // The image instance for dirt.
+	dirt: new Image(), // The Image instance for dirt.
+	grass: new Image(), // The Image instance for grass.
 	rock: new Image(), // The Image instance for rock.
 	veinGold: new Image(), // The Image instance for gold veins.
 	veinGem: new Image(), // The Image instance for gem veins. 
@@ -31,6 +32,9 @@ Images.gem.src = './resources/images/Collectables/SP_Gem.png';
 
 // Set the source of the dirt Image.
 Images.dirt.src = './resources/images/Terrain/SP_Dirt.png';
+
+// Set the source of the grass Image.
+Images.grass.src = './resources/images/Terrain/SP_Grass.png';
 
 // Set the source of the Rock Image.
 Images.rock.src = './resources/images/Terrain/SP_Rock.png';

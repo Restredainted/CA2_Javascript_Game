@@ -93,19 +93,20 @@ class Player extends GameObject {
 		}
 
 		// Check if player has fallen off the bottom of the screen
-		if (this.y > this.game.canvas.height) {
-		this.resetPlayerState();
+		// Or off the screen edges. 
+		if (this.y > this.game.canvas.height * 4 || this.x <= - 32 || this.x >= this.game.canvas.width + 32) {
+			this.resetPlayerState();
 		}
 
 		// Check if player has no lives left
 		if (this.lives <= 0) {
-		location.reload();
+			location.reload();
 		}
 
 		// Check if player has collected all collectables
-		if (this.score >= 3) {
-		console.log('You win!');
-		location.reload();
+		if (this.score >= 9) {
+			console.log('You win!');
+			location.reload();
 		}
 
 		super.update(deltaTime);
@@ -115,34 +116,34 @@ class Player extends GameObject {
 		const gamepad = input.getGamepad(); // Get the gamepad input
 		const physics = this.getComponent(Physics); // Get physics component
 		if (gamepad) {
-		// Reset the gamepad flags
-		this.isGamepadMovement = false;
-		this.isGamepadJump = false;
+			// Reset the gamepad flags
+			this.isGamepadMovement = false;
+			this.isGamepadJump = false;
 
-		// Handle movement
-		const horizontalAxis = gamepad.axes[0];
-		// Move right
-		if (horizontalAxis > 0.1) {
-			this.isGamepadMovement = true;
-			physics.velocity.x = 100;
-			this.direction = -1;
-		} 
-		// Move left
-		else if (horizontalAxis < -0.1) {
-			this.isGamepadMovement = true;
-			physics.velocity.x = -100;
-			this.direction = 1;
-		} 
-		// Stop
-		else {
-			physics.velocity.x = 0;
-		}
-		
-		// Handle jump, using gamepad button 0 (typically the 'A' button on most gamepads)
-		if (input.isGamepadButtonDown(0) && this.isOnGround) {
-			this.isGamepadJump = true;
-			this.startJump();
-		}
+			// Handle movement
+			const horizontalAxis = gamepad.axes[0];
+			// Move right
+			if (horizontalAxis > 0.1) {
+				this.isGamepadMovement = true;
+				physics.velocity.x = 100;
+				this.direction = -1;
+			} 
+			// Move left
+			else if (horizontalAxis < -0.1) {
+				this.isGamepadMovement = true;
+				physics.velocity.x = -100;
+				this.direction = 1;
+			} 
+			// Stop
+			else {
+				physics.velocity.x = 0;
+			}
+			
+			// Handle jump, using gamepad button 0 (typically the 'A' button on most gamepads)
+			if (input.isGamepadButtonDown(0) && this.isOnGround) {
+				this.isGamepadJump = true;
+				this.startJump();
+			}
 		}
 	}
 

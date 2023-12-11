@@ -21,6 +21,7 @@ class Tile extends GameObject{
 		this.addComponent(new Physics({ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }));
 		
 		// Set the tag property to 'Ground'. This can be used to identify tiles later in the game logic
+		
 		this.tag = 'Ground'; 
 
     }

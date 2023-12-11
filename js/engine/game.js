@@ -125,9 +125,9 @@ import {clamp} from './utilities.js';
 
 		// Reset all game objects that have a reset method.
 		for (const gameObject of this.gameObjects) {
-		if (gameObject.reset) {
-			gameObject.reset();
-		}
+			if (gameObject.reset) {
+				gameObject.reset();
+			}
 		}
 
 		// Restart the game.
