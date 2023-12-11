@@ -4,7 +4,7 @@ import Player from './player.js';
 import Enemy from './enemy.js';
 import PlayerUI from './playerUI.js';
 import Tile from './Terrain/tile.js';
-import Dirt from './Terrain/tile.js';
+import Dirt from './Terrain/dirt.js';
 import Collectable from './collectable.js';
 import Gold from './gold.js';
 import Gem from './gem.js';
@@ -34,24 +34,22 @@ class Level extends Game {
 
 		// Create tiles and add them to the game
 		
-			for (let i = 0; i <= (this.canvas.width / 16); i++) {
+			for (let i = 0; i <= (this.canvas.width / 32); i++) {
 
-				for (let j = 0; j <= (this.canvas.height * 4) / 16 ; j++) {
+				for (let j = 0; j <= (this.canvas.height * 4) / 32 ; j++) {
 
 					// if (i = 0) {
-					// 	new Rock();
+					// 	dirtTiles.push(new Dirt(64 * i, (64 * j) + (this.canvas.height)));
 					// }
-					dirtTiles.push(new Dirt(16 * i, (16 * j) + (this.canvas.height)));
+					// else{
+					dirtTiles.push(new Dirt(32 * i, (32 * j) + (this.canvas.height)));
 				}
 			}
-			// new Tile(0, this.canvas.height - 20, tileWidth, 20),
-			// new Tile(tileWidth + gap, this.canvas.height - 20, tileWidth, 20),
-			// new Tile(2 * (tileWidth + gap), this.canvas.height - 20, tileWidth, 20),
-			// new Tile(3 * (tileWidth + gap), this.canvas.height - 30, tileWidth, 20),
-			// new Tile(4 * (tileWidth + gap), this.canvas.height - 40, tileWidth, 20),
+
+			
 		
 		for (const dirt of dirtTiles) {
-
+			//console.log(dirt.getComponent(Renderer));
 			this.addGameObject(dirt);
 		}
 

@@ -31,16 +31,20 @@ import {clamp} from './utilities.js';
 	resizeCanvas() {
 		
 		// Sets Canvas width relative to canvas height.
-		// uses window.screen.availHeight to detect the display monitors resolution and make that the upper limit for use in fullscreen. 
-		// Probably should limit it more and force the user to increase zoom to maintain consistent screen space. 
-		// But for now it's an interesting and dynamic interpretation of the screen size. 
+		/* Uses window.screen.availHeight to detect the display monitors resolution and make that the upper limit for use in fullscreen. 
+		* Probably should limit it more and force the user to increase zoom to maintain consistent screen space. 
+		* But for now it's an interesting and dynamic interpretation of the screen size. 
+		* substracts modulus to maintain a 1:1 screen ration with drawn tiles. ONLY on the width scale. 
+		*/
 		this.canvas.height = clamp((window.innerHeight - 50), 480, window.screen.availHeight);
-		this.canvas.width = (this.canvas.height / 9) * 16;
+		this.canvas.width = ((this.canvas.height / 9) * 16);
+		this.canvas.width -= (this.canvas.width % 32);
 		
 		// Checks if width extends beyond window bounds then resizes to fit the horizontal of the screen. 
 		if (this.canvas.width > window.innerWidth - 50) {
 
 			this.canvas.width = clamp((window.innerWidth - 50), 854, window.screen.availWidth);
+			this.canvas.width -= (this.canvas.width % 32);
 			this.canvas.height = (this.canvas.width / 16) * 9;
 		}
 
