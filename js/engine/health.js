@@ -3,19 +3,19 @@ import { clamp } from "./utilities.js";
 
 class Health extends Component {
 
-    constructor(maxHP) {
+    constructor(maxHP = 3) {
         super(0, 0);
 
         this.maxHP = maxHP;
         this.HP = maxHP;
     }
 
-    damage(damage) {
+    damage(damage = 1) {
 
         this.HP -= damage;
     }
 
-    heal(heal) {
+    heal(heal = 1) {
 
         this.HP += heal;
         this.HP = clamp(this.HP, 0, this.maxHP);

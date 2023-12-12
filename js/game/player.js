@@ -36,7 +36,7 @@ class Player extends GameObject {
 		this.jumpTime = 0.3;
 		this.jumpTimer = 0;
 		this.isInvulnerable = false;
-		this.isRegen = false;
+		this.regenDelay = true;
 		this.isGamepadMovement = false;
 		this.isGamepadJump = false;
 	}
@@ -54,14 +54,13 @@ class Player extends GameObject {
 
 			if(!this.isInvulnerable) {
 
-				if (!this.isRegen){
+				if (!this.regenDelay) {
 
 					console.log("PassiveHeal")
 					this.health.heal(1);
+					// setInterval(this.health.heal(1), 10000); // setInterval is not working as expected and just runs every update.
 
-					setTimeout(() => {
-						this.isRegen = true;
-					}, 1000);
+					this.setRegenDelay();
 				}
 			}
 		}
@@ -109,10 +108,12 @@ class Player extends GameObject {
 		// Handle collisions with tiles
 		this.isOnGround = false;  // Reset this before checking collisions with tiles
 
-		// if(!this.isOnGround) {
 
-		// 	physics.gravity.y = 750;
-		// }
+		//Was used trying to figure out a fix for the physics always puut on top issue. 
+		if(!this.isOnGround) {
+
+		 	physics.gravity.y = 750;
+		 }
 
 		const tiles = this.game.gameObjects.filter((obj) => obj instanceof Tile);
 
@@ -124,7 +125,7 @@ class Player extends GameObject {
 
 					physics.velocity.y = 0;
 					physics.acceleration.y = 0;
-					//physics.gravity.y = 0;
+					physics.gravity.y = 0;
 					this.y = tile.y - this.renderer.height;
 					this.isOnGround = true;
 				}
@@ -211,16 +212,27 @@ class Player extends GameObject {
 		// Checks collision with an enemy and reduce player's life if not invulnerable
 		if (!this.isInvulnerable) {
 
-			this.health.HP--;
+			this.health.damage(3);
 			this.isInvulnerable = true;
+
 
 			// Make player vulnerable again after 2 seconds
 			setTimeout(() => {
-				this.isInvulnerable = false;
-			}, 2000);
+				this.isInvulnerable = false; 
+			}, 1500);
+
+			this.setRegenDelay(3000);
 		}
 	}
 
+	// Delays regeneration to make combat more challenging. 
+	setRegenDelay(x = 1000) {
+		this.regenDelay = true;
+
+		setTimeout(() => {
+			this.regenDelay = false;
+		}, x);
+	}
 	collect(collectable) {
 		// Handle collectable pickup
 		this.score += collectable.value;
