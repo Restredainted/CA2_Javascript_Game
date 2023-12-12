@@ -34,8 +34,8 @@ class Level extends Game {
 
 		// Define the tile's width and the gap between tiles
 		let rareGen = 0;
-		const gemRate = 0.95;
-		const goldRate = 0.8;
+		const gemRate = 0.98;
+		const goldRate = 0.9;
 		const tileWidth = 200;
 		const tileSize = 32;
 		const gap = 100;
@@ -75,7 +75,7 @@ class Level extends Game {
 					}
 
 					// Generates gold veins for player to dig up. 
-					else if (rareGen >= goldRate) {
+					else if (rareGen >= goldRate && (rareGen <= gemRate)) {
 						console.log("Gold Spawned");
 						dirtTiles.push(new GoldVein(newX, newY));
 					}
