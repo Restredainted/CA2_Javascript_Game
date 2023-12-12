@@ -112,9 +112,9 @@ class Level extends Game {
 		this.addGameObject(new Enemy(2 * (tileWidth + gap) + 50, this.canvas.height/2 - 90));
 
 		// Create collectables and add them to the game
-		this.addGameObject(new Collectable(250, this.canvas.height/2 - 200, 20, 20));
-		this.addGameObject(new Collectable(450, this.canvas.height/2 - 100, 20, 20));
-		this.addGameObject(new Collectable(650, this.canvas.height/2 - 100, 20, 20));
+		this.addGameObject(new Gem(250, this.canvas.height/2 - 200));
+		this.addGameObject(new Gold(450, this.canvas.height/2 - 100));
+		this.addGameObject(new Gold(650, this.canvas.height/2 - 100));
 		this.addGameObject(new Gold(300, this.canvas.height/2 - 110));
 		this.addGameObject(new Gem(985, this.canvas.height/2 - 90));
 	}

@@ -5,7 +5,7 @@ import Renderer from "../engine/renderer.js";
 class Gold extends Collectable {
 
 	constructor (x, y, color = 'gold') {
-		super(x, y, Images.coin.width, Images.coin.height, color);
+		super(x, y, Images.coin.width, Images.coin.height, color, Images.coin);
 
 		this.renderer = new Renderer(color, Images.coin.height, Images.coin.width, Images.coin); // Add renderer
 		this.addComponent(this.renderer);

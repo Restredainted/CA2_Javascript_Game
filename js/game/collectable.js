@@ -17,14 +17,19 @@ class Collectable extends GameObject {
 	// - x and y coordinates
 	// - width and height of the collectable
 	// - color of the collectable, which defaults to 'gold' if not specified
-	constructor(x, y, width, height, color = 'gold') {
+	constructor(x, y, width, height, color = 'gold', image) {
 		
 		// Call the constructor of the superclass (GameObject) with the x and y coordinates
 		super(x, y);
 
-		this.renderer = new Renderer(color, width, height)
-		// Add a new Renderer component to this collectable. The renderer is responsible for drawing the collectable.
-		// It uses the provided color, width, and height.
+		if (image == null) {
+			this.renderer = new Renderer(color, width, height)
+			// Add a new Renderer component to this collectable. The renderer is responsible for drawing the collectable.
+			// It uses the provided color, width, and height.
+		}
+		else {
+			this.renderer = new Renderer(color, width, height, image);
+		}
 		this.addComponent(this.renderer);
 
 		// Add a new Physics component to this collectable. The physics component is responsible for handling the physics
