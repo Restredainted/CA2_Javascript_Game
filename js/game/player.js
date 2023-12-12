@@ -25,6 +25,9 @@ class Player extends GameObject {
 		this.addComponent(this.health);
 		this.groundCheck = (new Raycast());
 		this.addComponent(this.groundCheck);
+		this.spawn = {x: this.x, y: this.y}; // sets a specific spawn point for out of bounds or death. 
+		// const spawnX = this.x;
+		// const spawnY = spawn.x;
 		
 
 		// Initialize all the player specific properties
@@ -226,13 +229,16 @@ class Player extends GameObject {
 	}
 
 	// Delays regeneration to make combat more challenging. 
+	// Could have generalized this to include the invincibilty time after damage, but decided against it. 
 	setRegenDelay(x = 1000) {
+
 		this.regenDelay = true;
 
 		setTimeout(() => {
 			this.regenDelay = false;
 		}, x);
 	}
+	
 	collect(collectable) {
 		// Handle collectable pickup
 		this.score += collectable.value;
@@ -248,8 +254,10 @@ class Player extends GameObject {
 
 	resetPlayerState() {
 		// Reset the player's state, repositioning it and nullifying movement
-		this.x = this.game.canvas.width / 2;
-		this.y = this.game.canvas.height / 2;
+		// this.x = this.game.canvas.width / 2;
+		// this.y = this.game.canvas.height / 2;
+		this.x = this.spawn.x;
+		this.y = this.spawn.y;
 		this.getComponent(Physics).velocity = { x: 0, y: 0 };
 		this.getComponent(Physics).acceleration = { x: 0, y: 0 };
 		this.direction = 1;
