@@ -8,19 +8,27 @@ import Enemy from './enemy.js';
 import Tile from './Terrain/tile.js';
 import Collectable from './collectable.js';
 import ParticleSystem from '../engine/particleSystem.js';
+import Health from '../engine/health.js';
+import Raycast from '../engine/raycast.js';
 
 // Defining a class Player that extends GameObject
 class Player extends GameObject {
 	// Constructor initializes the game object and add necessary components
 	constructor(x, y) {
 		super(x, y); // Call parent's constructor
+
 		this.renderer = new Renderer('blue', 50, 50, Images.player); // Add renderer
 		this.addComponent(this.renderer);
 		this.addComponent(new Physics({ x: 0, y: 0 }, { x: 0, y: 0 })); // Add physics
 		this.addComponent(new Input()); // Add input for handling user input
+		this.health = new Health(10);
+		this.addComponent(this.health);
+		this.groundCheck = (new Raycast());
+		this.addComponent(this.groundCheck);
+		
+
 		// Initialize all the player specific properties
 		this.direction = 1;
-		this.lives = 3;
 		this.score = 0;
 		this.isOnGround = false;
 		this.isJumping = false;
@@ -28,6 +36,7 @@ class Player extends GameObject {
 		this.jumpTime = 0.3;
 		this.jumpTimer = 0;
 		this.isInvulnerable = false;
+		this.isRegen = false;
 		this.isGamepadMovement = false;
 		this.isGamepadJump = false;
 	}
@@ -39,12 +48,30 @@ class Player extends GameObject {
 
 		this.handleGamepadInput(input);
 		
+
+		// Passive health regeneration for the player. 
+		if (this.health.HP < this.health.maxHP) {
+
+			if(!this.isInvulnerable) {
+
+				if (!this.isRegen){
+
+					console.log("PassiveHeal")
+					this.health.heal(1);
+
+					setTimeout(() => {
+						this.isRegen = true;
+					}, 1000);
+				}
+			}
+		}
+
 		// Handle player movement
-		if (!this.isGamepadMovement && input.isKeyDown('ArrowRight')) {
+		if (!this.isGamepadMovement && input.isKeyDown('KeyD')) {
 			physics.velocity.x = 150;
 			this.direction = -1;
 		} 
-		else if (!this.isGamepadMovement && input.isKeyDown('ArrowLeft')) {
+		else if (!this.isGamepadMovement && input.isKeyDown('KeyA')) {
 			physics.velocity.x = -150;
 			this.direction = 1;
 		} 
@@ -53,12 +80,12 @@ class Player extends GameObject {
 		}
 
 		// Handle player jumping
-		if (!this.isGamepadJump && input.isKeyDown('ArrowUp') && this.isOnGround) {
-		this.startJump();
+		if (!this.isGamepadJump && input.isKeyDown('Space') && this.isOnGround) {
+			this.startJump();
 		}
 
 		if (this.isJumping) {
-		this.updateJump(deltaTime);
+			this.updateJump(deltaTime);
 		}
 
 		// Handle collisions with collectables
@@ -77,15 +104,27 @@ class Player extends GameObject {
 				this.collidedWithEnemy();
 			}
 		}
+		//console.log(this.isOnGround);
 
 		// Handle collisions with tiles
 		this.isOnGround = false;  // Reset this before checking collisions with tiles
+
+		// if(!this.isOnGround) {
+
+		// 	physics.gravity.y = 750;
+		// }
+
 		const tiles = this.game.gameObjects.filter((obj) => obj instanceof Tile);
+
 		for (const tile of tiles) {
-			if (physics.isColliding(tile.getComponent(Physics))) {
+
+			if (this.groundCheck.isColliding(tile.getComponent(Physics))) {
+
 				if (!this.isJumping) {
+
 					physics.velocity.y = 0;
 					physics.acceleration.y = 0;
+					//physics.gravity.y = 0;
 					this.y = tile.y - this.renderer.height;
 					this.isOnGround = true;
 				}
@@ -98,13 +137,16 @@ class Player extends GameObject {
 			this.resetPlayerState();
 		}
 
-		// Check if player has no lives left
-		if (this.lives <= 0) {
+		// Check if player has any health left
+		if (this.health.HP <= 0) {
+
+			console.log("Player died");
 			location.reload();
 		}
 
 		// Check if player has collected all collectables
 		if (this.score >= 9) {
+
 			console.log('You win!');
 			location.reload();
 		}
@@ -168,8 +210,10 @@ class Player extends GameObject {
 	collidedWithEnemy() {
 		// Checks collision with an enemy and reduce player's life if not invulnerable
 		if (!this.isInvulnerable) {
-			this.lives--;
+
+			this.health.HP--;
 			this.isInvulnerable = true;
+
 			// Make player vulnerable again after 2 seconds
 			setTimeout(() => {
 				this.isInvulnerable = false;
@@ -204,7 +248,7 @@ class Player extends GameObject {
 
 	resetGame() {
 		// Reset the game state, which includes the player's state
-		this.lives = 3;
+		this.health.HP = this.health.maxHP;
 		this.score = 0;
 		this.resetPlayerState();
 	}
