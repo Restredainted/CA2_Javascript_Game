@@ -9,14 +9,12 @@ class Dirt extends Tile {
         super(x, y, Images.dirt.width, Images.dirt.height, Images.dirt, 'Brown');
 
         this.health = new Health(3);
+        this.addComponent(this.health);
+        this.indestructable = false;
     }
 
-    update(deltaTime) {
-
-        if (this.health.HP <= 0) {
-
-            this.GameObject.removeGameObject(this.GameObject);
-        }
+    getHealth() {
+        return this.health.HP;
     }
 }
 

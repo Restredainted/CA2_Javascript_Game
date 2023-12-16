@@ -119,6 +119,20 @@ class Level extends Game {
 		this.addGameObject(new Gem(985, this.canvas.height/2 - 90));
 	}
 
+	update(deltaTime) {
+
+		for (const tile of dirtTiles) {
+
+			if (!tile.indestructible) {
+
+				if (tile.getHealth() <= 0) {
+
+					this.removeGameObject(tile);
+				}
+			}
+		}
+	}
+
 }
 
 // Export the Level class as the default export of this module

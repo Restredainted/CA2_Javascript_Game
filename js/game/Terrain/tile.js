@@ -11,7 +11,7 @@ class Tile extends GameObject{
 
     constructor(x, y, width, height, image, color = 'green') {
         super(x, y);
-
+-
         // Add a Renderer component to this tile with the specified color, width, and height.
 		// The Renderer component is responsible for rendering the tile on the canvas
 		this.addComponent(new Renderer(color, width, height, image));
@@ -21,7 +21,7 @@ class Tile extends GameObject{
 		this.addComponent(new Physics({ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }));
 		
 		// Set the tag property to 'Ground'. This can be used to identify tiles later in the game logic
-		
+		this.indestructable = true;
 		this.tag = 'Ground'; 
 
     }

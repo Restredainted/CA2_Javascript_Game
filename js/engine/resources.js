@@ -1,6 +1,7 @@
 // Create an Images object to hold the Image instances for the player and the enemy.
 const Images = {
 	player: new Image(), // The Image instance for the player.
+	attack: new Image(), // The Image instance for the player Attack.
 	enemy: new Image(), // The Image instance for the enemy.
 	coin: new Image(), // The Image instance for gold coins.
 	gem: new Image(), // The Image instance for gems.
@@ -19,7 +20,10 @@ const AudioFiles = {
 };
 
 // Set the source of the player image.
-Images.player.src = './resources/images/player/player.png'; // Update the image path
+Images.player.src = './resources/images/player/SP_Player.png'; // Update the image path
+
+// Set the source of the player attack image. 
+Images.attack.src = './resources/images/player/SP_Attack.png';
 
 // Set the source of the enemy image.
 Images.enemy.src = './resources/images/enemy/enemy.png'; // Update the image path

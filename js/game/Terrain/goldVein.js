@@ -9,6 +9,8 @@ class GoldVein extends Tile {
         super(x, y, Images.veinGold.width, Images.veinGold.height, Images.veinGold, 'Yellow');
 
         this.health = new Health(5);
+        this.addComponent(this.health);
+        this.indestructable = false;
     }
 
     update(deltaTime) {

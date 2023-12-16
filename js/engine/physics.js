@@ -41,26 +41,6 @@ class Physics extends Component {
 		return left < otherRight && right > otherLeft && top < otherBottom && bottom > otherTop;
 	}
 
-	
-	isCollidingTop(otherPhysics, collisionDirection = TOP) {
-
-		const [left, right, top, bottom] = this.getBoundingBox();
-
-		// Get the bounding boxes of both game objects.
-		if (direction == RIGHT) {
-			
-			const [left, right, top, bottom] = this.getBoundingBoxTop();
-		}
-
-		else if (Direction == LEFT) {
-			const [left, right, top, bottom] = this.getBoundingBoxLeft;
-		}
-
-		const [otherLeft, otherRight, otherTop, otherBottom] = otherPhysics.getBoundingBox();
-
-		// Check if the bounding boxes overlap. If they do, return true. If not, return false.
-		return left < otherRight && right > otherLeft && top < otherBottom && bottom > otherTop;
-	}
 
 	// The getBoundingBox method returns the bounding box of the game object in terms of its left, right, top, and bottom edges.
 	getBoundingBox() {
@@ -78,6 +58,16 @@ class Physics extends Component {
 
 
 	
+	
+	isCollidingTop(otherPhysics) {
+
+		// Get the bounding boxes of both game objects.
+		const [left, right, top, bottom] = this.getBoundingBoxTop();
+		const [otherLeft, otherRight, otherTop, otherBottom] = otherPhysics.getBoundingBox();
+
+		// Check if the bounding boxes overlap. If they do, return true. If not, return false.
+		return left < otherRight && right > otherLeft && top < otherBottom && bottom > otherTop;
+	}
 
 	/**
 	 * The getBoundingBoxTop method returns the top side as a bounding box of the game object in terms of its left, right, top, and bottom edges.
@@ -126,6 +116,39 @@ class Physics extends Component {
         * */
 		const left = this.gameObject.x;
 		const right = this.gameObject.x + renderer.width * 0.1;
+		const top = this.gameObject.y + renderer.height * 0.1;
+		const bottom = this.gameObject.y + renderer.height * 0.9;
+
+		// Return the bounding box.
+		return [left, right, top, bottom];
+	}
+
+	/**
+	 * The isCollidingRight method checks for the collisions at the left of the game object.
+	 */
+	isCollidingRight(otherPhysics) {
+		// Get the bounding boxes of both game objects.
+		const [left, right, top, bottom] = this.getBoundingBoxRight();
+		const [otherLeft, otherRight, otherTop, otherBottom] = otherPhysics.getBoundingBox();
+
+		// Check if the bounding boxes overlap. If they do, return true. If not, return false.
+		return left < otherRight && right > otherLeft && top < otherBottom && bottom > otherTop;
+	}
+
+	/**
+	 * The getBoundingBoxRight method returns the Right side as a bounding box of the game object in terms of its left, right, top, and bottom edges.
+	 */
+	getBoundingBoxRight() {
+		// Get the Renderer component of the game object to get its width and height.
+		const renderer = this.gameObject.getComponent(Renderer);
+		// Calculate the left, right, top, and bottom edges of the bounding box.
+
+        /* The calculations here, create a small box 10% of the size of the object it is attached to, which is created then at the objects feet. 
+        * this provided me more accurate ground check collision and using this method with how I changed the ]]
+        * groundCheck removed the jittering due to gravity while on the ground. which resulted in lines appearing horizontally between tiles. 
+        * */
+		const left = this.gameObject.x + renderer.width * 0.9;
+		const right = this.gameObject.x + renderer.width;
 		const top = this.gameObject.y + renderer.height * 0.1;
 		const bottom = this.gameObject.y + renderer.height * 0.9;
 

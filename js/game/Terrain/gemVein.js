@@ -9,6 +9,8 @@ class GemVein extends Tile {
         super(x, y, Images.veinGem.width, Images.veinGem.height, Images.veinGem, 'Yellow');
 
         this.health = new Health(10);
+        this.addComponent(this.health);
+        this.indestructable = false;
     }
     
     update(deltaTime) {
