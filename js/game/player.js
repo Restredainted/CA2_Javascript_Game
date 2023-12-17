@@ -6,6 +6,8 @@ import Input from '../engine/input.js';
 import { Images } from '../engine/resources.js';
 import Enemy from './enemy.js';
 import Tile from './Terrain/tile.js';
+import DirtBackground from './Terrain/dirtBackground.js';
+import WellBackground from './Terrain/WellBackground.js';
 import Collectable from './collectable.js';
 import ParticleSystem from '../engine/particleSystem.js';
 import Health from '../engine/health.js';
@@ -165,36 +167,44 @@ class Player extends GameObject {
 
 		for (const tile of tiles) {
 
-			if (this.groundCheck.isColliding(tile.getComponent(Physics))) {
+			// Player should only collide with hard tiles, not background tiles. 
+			// There's bound to be a simpler sollution to this possibly using tags, 
+			// but this is my solution for the time being. 
+			if (tile instanceof DirtBackground || tile instanceof WellBackground) {} 
+			
+			else { 
 
-				if (!this.isJumping) {
+				if (this.groundCheck.isColliding(tile.getComponent(Physics))) {
+
+					if (!this.isJumping) {
+
+						physics.velocity.y = 0;
+						physics.acceleration.y = 0;
+						physics.gravity.y = 0;
+						this.y = tile.y - this.renderer.height;
+						this.isOnGround = true;
+					}
+				}
+
+				// Compares collisions for the top of the player to detect if a roof is touched. 
+				if (physics.isCollidingTop(tile.getComponent(Physics))) {
 
 					physics.velocity.y = 0;
-					physics.acceleration.y = 0;
-					physics.gravity.y = 0;
-					this.y = tile.y - this.renderer.height;
-					this.isOnGround = true;
+					this.y = tile.y + tile.getComponent(Renderer).height;
 				}
-			}
 
-			// Compares collisions for the top of the player to detect if a roof is touched. 
-			if (physics.isCollidingTop(tile.getComponent(Physics))) {
+				// Compares collisions for the sides of the player to detect if a wall has been touched. 
+				if (physics.isCollidingLeft(tile.getComponent(Physics))) {
 
-				physics.velocity.y = 0;
-				this.y = tile.y + tile.getComponent(Renderer).height;
-			}
+					physics.velocity.x = 0;
+					this.x = tile.x + tile.getComponent(Renderer).width * 1; // Multiplied by 1 to prevent getting stuck in the wall. 
+				}
 
-			// Compares collisions for the sides of the player to detect if a wall has been touched. 
-			if (physics.isCollidingLeft(tile.getComponent(Physics))) {
+				if (physics.isCollidingRight(tile.getComponent(Physics))) {
 
-				physics.velocity.x = 0;
-				this.x = tile.x + tile.getComponent(Renderer).width * 1; // Multiplied by 1 to prevent getting stuck in the wall. 
-			}
-
-			if (physics.isCollidingRight(tile.getComponent(Physics))) {
-
-				physics.velocity.x = 0;
-				this.x = tile.x - this.renderer.width * 1;// Multiplied by 1 to prevent getting stuck in the wall. 
+					physics.velocity.x = 0;
+					this.x = tile.x - this.renderer.width * 1;// Multiplied by 1 to prevent getting stuck in the wall. 
+				}
 			}
 		}
 

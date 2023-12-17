@@ -3,13 +3,12 @@ import { Images } from '../../engine/resources.js';
 import Tile from './tile.js';
 
 
-class GoldVein extends Tile {
+class WellBackground extends Tile {
 
-    constructor(x, y, maxHP) {
-        super(x, y, Images.veinGold.width, Images.veinGold.height, Images.veinGold, 'Yellow', maxHP);
+    constructor(x, y) {
+        super(x, y, Images.wellBackground.width, Images.wellBackground.height, Images.wellBackground, 'Grey');
 
-        this.indestructable = false;
     }
 }
 
-export default GoldVein;
+export default WellBackground;

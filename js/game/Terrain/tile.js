@@ -32,9 +32,11 @@ class Tile extends GameObject{
 
     }
 
-	getHealth() {
-        return this.health.HP;
-    }
+
+	// Method to return the health value for the given tile, not used. 
+	// getHealth() {
+    //     return this.health.HP;
+    // }
 
 }
 

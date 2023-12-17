@@ -13,6 +13,9 @@ import Gold from './gold.js';
 import Gem from './gem.js';
 import Health from '../engine/health.js';
 import Attack from './attack.js';
+import DirtBackground from './Terrain/dirtBackground.js';
+import Well from './Terrain/well.js';
+import WellBackground from './Terrain/WellBackground.js';
 
 // Define a class Level that extends the Game class from the engine
 class Level extends Game {
@@ -22,16 +25,7 @@ class Level extends Game {
 		// Call the constructor of the superclass (Game) with the canvas ID
 		super(canvasId);
 		
-		// Create a player object and add it to the game
-		const player = new Player(this.canvas.width * 0.15, this.canvas.height * 0.4);
-		this.addGameObject(player);
 		
-		// Add the player UI object to the game
-		this.addGameObject(new PlayerUI(10, 10));
-		
-
-		// Set the game's camera target to the player
-		this.camera.target = player;
 
 		// Define the tile's width and the gap between tiles
 		let rareGen = 0;
@@ -67,11 +61,14 @@ class Level extends Game {
 
 					if (wellHole == 0) {
 
-						//create well objects. 
+						this.dirtTiles.push(new Well(newX - tileSize / 2, newY - tileSize));
+						this.dirtTiles.push(new Well(newX + tileSize * 2, newY - tileSize));
+						this.dirtTiles.unshift(new WellBackground(newX, newY - tileSize));
+						this.dirtTiles.unshift(new WellBackground(newX + tileSize, newY - tileSize));
 					}
 
 					//(i >= (this.canvas.width / tileSize) * 0.45 || i <= (this.canvas.width / tileSize) * 0.55 )
-					this.dirtTiles.push(new Dirt(newX,newY, 3));
+					this.dirtTiles.push(new Dirt(newX,newY, 1));
 					wellHole += 1;
 				}
 
@@ -83,8 +80,8 @@ class Level extends Game {
 
 				// Generates gold veins for player to dig up. 
 				else if (rareGen >= goldRate && (rareGen <= gemRate)) {
-					console.log("Gold Spawned");
-					this.dirtTiles.push(new GoldVein(newX, newY, 5));
+					// console.log("Gold Spawned");
+					this.dirtTiles.push(new GoldVein(newX, newY, 3));
 				}
 
 				// Generates Gemstone veins for the player to dig. 
@@ -92,13 +89,13 @@ class Level extends Game {
 				// below a certain depth. 
 				else if (rareGen >= gemRate) {
 
-					this.dirtTiles.push(new GemVein(newX, newY, 10));
+					this.dirtTiles.push(new GemVein(newX, newY, 5));
 				}
 
 				// if not generating anything else, fills the tileslot with dirt. 
 				else {
 
-					this.dirtTiles.push(new Dirt(newX, newY, 3));
+					this.dirtTiles.push(new Dirt(newX, newY, 1));
 				}
 			}
 		}
@@ -124,10 +121,21 @@ class Level extends Game {
 		this.addGameObject(new Gold(300, this.canvas.height/2 - 110));
 		this.addGameObject(new Gem(985, this.canvas.height/2 - 90));
 
+
+		// Create a player object and add it to the game
+		const player = new Player(this.canvas.width * 0.15, this.canvas.height * 0.4);
+		this.addGameObject(player);
+		
+		// Add the player UI object to the game
+		this.addGameObject(new PlayerUI(10, 10));
+		
+
+		// Set the game's camera target to the player
+		this.camera.target = player;
 		
 	}
 
-	update(deltaTime) {
+	update() {
 
 		// Segment duplicated from parent class, without it game would freeze on load. 
 		// Call each game object's update method with the delta time.
@@ -148,7 +156,18 @@ class Level extends Game {
 
 				if (tile.getComponent(Health).HP <= 0) {
 
+					this.gameObjects.unshift(new DirtBackground(tile.x, tile.y)) // Add background tile in place of dead tile. uses unshift to add it to the front. 
 					this.removeGameObject(tile);
+
+					if (tile instanceof GoldVein) {
+
+						this.addGameObject(new Gold(tile.x, tile.y));
+					}
+
+					if (tile instanceof GemVein) {
+
+						this.addGameObject(new Gem(tile.x, tile.y));
+					}
 				}
 			}
 		}
@@ -163,6 +182,14 @@ class Level extends Game {
 				this.removeGameObject(attack);
 			}
 		}
+
+		
+		/**
+		 * Replace player elements to top of stack to keep infront of level entities. 
+		 * Solved by moving player creation to end of level creation. 
+		 */
+
+		//this.gameObjects.splice(this.gameObjects.indexOf((obj) => obj instanceof Player), 1, this.player);
 
 	}
 }

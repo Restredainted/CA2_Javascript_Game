@@ -10,6 +10,9 @@ const Images = {
 	rock: new Image(), // The Image instance for rock.
 	veinGold: new Image(), // The Image instance for gold veins.
 	veinGem: new Image(), // The Image instance for gem veins. 
+	dirtBackground: new Image(), // image for Any dug tile background fill. 
+	well: new Image(), // The Image for the well side walls.
+	wellBackground: new Image(), // The Image for the well back wall. 
 };
 
 // Create an AudioFiles object to hold the file paths of the audio resources.
@@ -48,6 +51,15 @@ Images.veinGold.src = './resources/images/Terrain/SP_VeinGold.png';
 
 // Set the source of the gem vein Image.
 Images.veinGem.src = './resources/images/Terrain/SP_VeinGem.png';
+
+//Set the srouce of the dirt background Image. 
+Images.dirtBackground.src = './resources/images/Terrain/SP_Dirt_Background.png';
+
+//Set the srouce of the well wall Image. 
+Images.well.src = './resources/images/Terrain/SP_Well_Wall.png';
+
+//Set the srouce of the well background Image. 
+Images.wellBackground.src = './resources/images/Terrain/SP_Well_Background.png';
 
 
 // Export the Images and AudioFiles objects so they can be imported and used in other modules.
