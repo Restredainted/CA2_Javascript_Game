@@ -14,7 +14,7 @@ import Rock from './Terrain/rock.js';
 import Tile from './Terrain/tile.js';
 import Well from './Terrain/well.js';
 import Attack from './attack.js';
-import Enemy from './enemy.js';
+// import Enemy from './enemy.js'; // Remnant Code
 import Gem from './gem.js';
 import Gold from './gold.js';
 import Player from './player.js';
@@ -34,9 +34,9 @@ class Level extends Game {
 		let rareGen = 0;
 		const gemRate = 0.98;
 		const goldRate = 0.9;
-		const tileWidth = 200;
+		// const tileWidth = 200; // Remnant Code
 		const tileSize = 32;
-		const gap = 100;
+		// const gap = 100; // Remnant Code
 		this.dirtTiles = [];
 
 		// Create tiles and add them to the game
@@ -44,7 +44,9 @@ class Level extends Game {
 
 		for (let i = 0; i < (this.canvas.width / tileSize); i++) {
 
-			// Generate clouds. 
+			/**
+			 * Generate clouds. 
+			 */
 			for (let j = 0; j < (this.canvas.width / (tileSize * 8)); j++) {
 
 				if ( j % 2 == 0) {
@@ -57,6 +59,9 @@ class Level extends Game {
 				}
 			}
 
+			/** 
+			 * Primary generation loop. 
+			*/
 			for (let j = 0; j <= (this.canvas.height * 4) / tileSize ; j++) {
 
 				let newX = tileSize * i;
@@ -66,7 +71,7 @@ class Level extends Game {
 				//console.log(rareGen);
 
 				// Generate Borders along the 2 vertical edges and bottom of the level.
-				if (i == 0 || i == (this.canvas.width / tileSize) - 1 || j == ((this.canvas.height * 4) / tileSize) - 1) {
+				if (i == 0 || i == (this.canvas.width / tileSize) - 1 || j >= ((this.canvas.height * 4) / tileSize) - 2) {
 
 					this.dirtTiles.push(new Rock(newX, newY));
 				}

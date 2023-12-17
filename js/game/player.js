@@ -1,19 +1,19 @@
 // Importing necessary components and resources
 import GameObject from '../engine/gameobject.js';
-import Renderer from '../engine/renderer.js';
-import Physics from '../engine/physics.js';
-import Input from '../engine/input.js';
-import { Images } from '../engine/resources.js';
-import Enemy from './enemy.js';
-import Tile from './Terrain/tile.js';
-import TileBackground from './Terrain/tileBackground.js';
-import Collectable from './collectable.js';
-import ParticleSystem from '../engine/particleSystem.js';
 import Health from '../engine/health.js';
+import Input from '../engine/input.js';
+import ParticleSystem from '../engine/particleSystem.js';
+import Physics from '../engine/physics.js';
 import Raycast from '../engine/raycast.js';
-import Attack from './attack.js';
+import Renderer from '../engine/renderer.js';
+import { Images } from '../engine/resources.js';
 import Cabin from './Terrain/cabin.js';
 import CabinDoor from './Terrain/cabinDoorCheck.js';
+import Tile from './Terrain/tile.js';
+import TileBackground from './Terrain/tileBackground.js';
+import Attack from './attack.js';
+import Collectable from './collectable.js';
+import Enemy from './enemy.js';
 
 // Defining a class Player that extends GameObject
 class Player extends GameObject {
@@ -223,7 +223,7 @@ class Player extends GameObject {
 
 		// Check if player has fallen off the bottom of the screen
 		// Or off the screen edges. 
-		if (this.y > this.game.canvas.height * 4 || this.x <= - 32 || this.x >= this.game.canvas.width + 32) {
+		if (this.y > this.game.canvas.height * 4.5 || this.x <= - 32 || this.x >= this.game.canvas.width + 32) {
 
 			this.resetPlayerState();
 		}
