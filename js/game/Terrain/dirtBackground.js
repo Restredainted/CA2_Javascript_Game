@@ -1,9 +1,8 @@
-import Health from '../../engine/health.js';
 import { Images } from '../../engine/resources.js';
-import Tile from './tile.js';
+import TileBackground from './tileBackground.js';
 
 
-class DirtBackground extends Tile {
+class DirtBackground extends TileBackground {
 
     constructor(x, y) {
         super(x, y, Images.dirtBackground.width, Images.dirtBackground.height, Images.dirtBackground, 'Brown');

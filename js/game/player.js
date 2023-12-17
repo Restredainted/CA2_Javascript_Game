@@ -6,8 +6,7 @@ import Input from '../engine/input.js';
 import { Images } from '../engine/resources.js';
 import Enemy from './enemy.js';
 import Tile from './Terrain/tile.js';
-import DirtBackground from './Terrain/dirtBackground.js';
-import WellBackground from './Terrain/WellBackground.js';
+import TileBackground from './Terrain/tileBackground.js';
 import Collectable from './collectable.js';
 import ParticleSystem from '../engine/particleSystem.js';
 import Health from '../engine/health.js';
@@ -170,7 +169,7 @@ class Player extends GameObject {
 			// Player should only collide with hard tiles, not background tiles. 
 			// There's bound to be a simpler sollution to this possibly using tags, 
 			// but this is my solution for the time being. 
-			if (tile instanceof DirtBackground || tile instanceof WellBackground) {} 
+			if (tile instanceof TileBackground) {} 
 			
 			else { 
 

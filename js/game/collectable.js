@@ -9,8 +9,7 @@ import Physics from '../engine/physics.js';
 
 // USed to check for collisions.
 import Tile from './Terrain/tile.js';
-import DirtBackground from './Terrain/dirtBackground.js';
-import WellBackground from './Terrain/WellBackground.js';
+import TileBackground from './Terrain/tileBackground.js';
 
 // Define a new class, collectable, which extends (i.e., inherits from) GameObject
 class Collectable extends GameObject {
@@ -71,7 +70,7 @@ class Collectable extends GameObject {
 
 			//console.log(this.gameObject + "Collision");
 
-			if (tile instanceof DirtBackground || tile instanceof WellBackground) {} 
+			if (tile instanceof TileBackground) {} 
 			
 			else if (this.physicsDelay <= 0) { 
 			

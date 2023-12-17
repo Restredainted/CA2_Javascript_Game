@@ -1,22 +1,24 @@
 // Import necessary classes and resources
 import Game from '../engine/game.js';
-import Player from './player.js';
-import Enemy from './enemy.js';
-import PlayerUI from './playerUI.js';
-import Tile from './Terrain/tile.js';
-import Dirt from './Terrain/dirt.js';
-import Rock from './Terrain/rock.js';
-import Grass from './Terrain/grass.js';
-import GoldVein from './Terrain/goldVein.js';
-import GemVein from './Terrain/gemVein.js';
-import Gold from './gold.js';
-import Gem from './gem.js';
 import Health from '../engine/health.js';
-import Attack from './attack.js';
-import DirtBackground from './Terrain/dirtBackground.js';
-import Well from './Terrain/well.js';
-import WellBackground from './Terrain/WellBackground.js';
 import Renderer from '../engine/renderer.js';
+import WellBackground from './Terrain/WellBackground.js';
+import Cabin from './Terrain/cabin.js';
+import Cloud from './Terrain/cloud.js';
+import Dirt from './Terrain/dirt.js';
+import DirtBackground from './Terrain/dirtBackground.js';
+import GemVein from './Terrain/gemVein.js';
+import GoldVein from './Terrain/goldVein.js';
+import Grass from './Terrain/grass.js';
+import Rock from './Terrain/rock.js';
+import Tile from './Terrain/tile.js';
+import Well from './Terrain/well.js';
+import Attack from './attack.js';
+import Enemy from './enemy.js';
+import Gem from './gem.js';
+import Gold from './gold.js';
+import Player from './player.js';
+import PlayerUI from './playerUI.js';
 
 // Define a class Level that extends the Game class from the engine
 class Level extends Game {
@@ -42,6 +44,19 @@ class Level extends Game {
 
 		for (let i = 0; i < (this.canvas.width / tileSize); i++) {
 
+			// Generate clouds. 
+			for (let j = 0; j < (this.canvas.width / (tileSize * 8)); j++) {
+
+				if ( j % 2 == 0) {
+
+					this.dirtTiles.push(new Cloud(j * tileSize * 8.5, this.canvas.height * 0.07 ));
+				}
+				else {
+					
+					this.dirtTiles.push(new Cloud(j * tileSize * 8.5, this.canvas.height * 0.03 ));
+				}
+			}
+
 			for (let j = 0; j <= (this.canvas.height * 4) / tileSize ; j++) {
 
 				let newX = tileSize * i;
@@ -66,6 +81,7 @@ class Level extends Game {
 						this.dirtTiles.push(new Well(newX + tileSize * 2, newY - tileSize));
 						this.dirtTiles.unshift(new WellBackground(newX, newY - tileSize));
 						this.dirtTiles.unshift(new WellBackground(newX + tileSize, newY - tileSize));
+						this.dirtTiles.unshift(new Cabin(((this.canvas.width * 0.6) - (this.canvas.width % 32) + 8), newY));
 					}
 
 					//(i >= (this.canvas.width / tileSize) * 0.45 || i <= (this.canvas.width / tileSize) * 0.55 )
@@ -109,18 +125,19 @@ class Level extends Game {
 		}
 
 		
+		// Remnants of given code. 
 
-		// Create enemies and add them to the game
-		this.addGameObject(new Enemy(50, this.canvas.height/2 - 90));
-		this.addGameObject(new Enemy(tileWidth + gap + 50, this.canvas.height/2 - 90));
-		this.addGameObject(new Enemy(2 * (tileWidth + gap) + 50, this.canvas.height/2 - 90));
+		// // Create enemies and add them to the game
+		// this.addGameObject(new Enemy(50, this.canvas.height/2 - 90));
+		// this.addGameObject(new Enemy(tileWidth + gap + 50, this.canvas.height/2 - 90));
+		// this.addGameObject(new Enemy(2 * (tileWidth + gap) + 50, this.canvas.height/2 - 90));
 
-		// Create collectables and add them to the game
-		this.addGameObject(new Gem(250, this.canvas.height/2 - 200));
-		this.addGameObject(new Gold(450, this.canvas.height/2 - 100));
-		this.addGameObject(new Gold(650, this.canvas.height/2 - 100));
-		this.addGameObject(new Gold(300, this.canvas.height/2 - 110));
-		this.addGameObject(new Gem(985, this.canvas.height/2 - 90));
+		// // Create collectables and add them to the game
+		// this.addGameObject(new Gem(250, this.canvas.height/2 - 200));
+		// this.addGameObject(new Gold(450, this.canvas.height/2 - 100));
+		// this.addGameObject(new Gold(650, this.canvas.height/2 - 100));
+		// this.addGameObject(new Gold(300, this.canvas.height/2 - 110));
+		// this.addGameObject(new Gem(985, this.canvas.height/2 - 90));
 
 
 		// Create a player object and add it to the game
