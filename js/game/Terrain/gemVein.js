@@ -5,20 +5,10 @@ import Tile from './tile.js';
 
 class GemVein extends Tile {
 
-    constructor(x, y) {
-        super(x, y, Images.veinGem.width, Images.veinGem.height, Images.veinGem, 'Yellow');
+    constructor(x, y, maxHP) {
+        super(x, y, Images.veinGem.width, Images.veinGem.height, Images.veinGem, 'Red', maxHP);
 
-        this.health = new Health(10);
-        this.addComponent(this.health);
         this.indestructable = false;
-    }
-    
-    update(deltaTime) {
-        
-        if (this.health.HP <= 0) {
-
-            this.GameObject.removeGameObject(this.GameObject);
-        }
     }
 }
 

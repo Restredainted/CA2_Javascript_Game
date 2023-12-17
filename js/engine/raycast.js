@@ -19,9 +19,9 @@ class Raycast extends Physics{
         * this provided me more accurate ground check collision and using this method with how I changed the ]]
         * groundCheck removed the jittering due to gravity while on the ground. which resulted in lines appearing horizontally between tiles. 
         * */
-		const left = this.gameObject.x + renderer.width * 0.45;
-		const right = this.gameObject.x + renderer.width * 0.55;
-		const top = this.gameObject.y + renderer.height;
+		const left = this.gameObject.x + renderer.width * 0.15;
+		const right = this.gameObject.x + renderer.width * 0.85;
+		const top = this.gameObject.y + renderer.height * 0.95;
 		const bottom = this.gameObject.y + renderer.height * 1.1;
 
 		// Return the bounding box.

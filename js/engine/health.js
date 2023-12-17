@@ -13,6 +13,7 @@ class Health extends Component {
     damage(damage = 1) {
 
         this.HP -= damage;
+        console.log(this + "took damage " + this.HP); // Debug tracing output. 
     }
 
     heal(heal = 1) {

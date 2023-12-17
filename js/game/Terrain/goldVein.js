@@ -5,20 +5,10 @@ import Tile from './tile.js';
 
 class GoldVein extends Tile {
 
-    constructor(x, y) {
-        super(x, y, Images.veinGold.width, Images.veinGold.height, Images.veinGold, 'Yellow');
+    constructor(x, y, maxHP) {
+        super(x, y, Images.veinGold.width, Images.veinGold.height, Images.veinGold, 'Yellow', maxHP);
 
-        this.health = new Health(5);
-        this.addComponent(this.health);
         this.indestructable = false;
-    }
-
-    update(deltaTime) {
-        
-        if (this.health.HP <= 0) {
-
-            this.GameObject.removeGameObject(this.GameObject);
-        }
     }
 }
 

@@ -5,16 +5,10 @@ import Tile from './tile.js';
 
 class Dirt extends Tile {
 
-    constructor(x, y) {
-        super(x, y, Images.dirt.width, Images.dirt.height, Images.dirt, 'Brown');
+    constructor(x, y, maxHP) {
+        super(x, y, Images.dirt.width, Images.dirt.height, Images.dirt, 'Brown', maxHP);
 
-        this.health = new Health(3);
-        this.addComponent(this.health);
         this.indestructable = false;
-    }
-
-    getHealth() {
-        return this.health.HP;
     }
 }
 

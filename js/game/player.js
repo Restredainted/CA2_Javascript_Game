@@ -41,7 +41,7 @@ class Player extends GameObject {
 		this.jumpTimer = 0;
 		this.isInvulnerable = false;
 		this.regenDelay = true;
-		this.attackDelay = 1;
+		this.attackDelay = 0.5;
 		this.isGamepadMovement = false;
 		this.isGamepadJump = false;
 	}
@@ -188,13 +188,13 @@ class Player extends GameObject {
 			if (physics.isCollidingLeft(tile.getComponent(Physics))) {
 
 				physics.velocity.x = 0;
-				this.x = tile.x + tile.getComponent(Renderer).width * 1.01; // Multiplied by 1.01 to prevent getting stuck in the wall. 
+				this.x = tile.x + tile.getComponent(Renderer).width * 1; // Multiplied by 1 to prevent getting stuck in the wall. 
 			}
 
 			if (physics.isCollidingRight(tile.getComponent(Physics))) {
 
 				physics.velocity.x = 0;
-				this.x = tile.x - this.renderer.width * 1.01;// Multiplied by 1.01 to prevent getting stuck in the wall. 
+				this.x = tile.x - this.renderer.width * 1;// Multiplied by 1 to prevent getting stuck in the wall. 
 			}
 		}
 
@@ -353,9 +353,25 @@ class Player extends GameObject {
 			}
 		}
 
-		this.attackDelay = 1;
+		this.attackDelay = 0.5;
 	}
 
+
+	
+
+	// update(deltaTime) {
+
+	// 	for (const tile of this.dirtTiles) {
+
+	// 		if (!tile.indestructable) {
+
+	// 			if (tile.health.HP <= 0) {
+
+	// 				this.removeGameObject(tile);
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	// Delays regeneration to make combat more challenging. 
 	// Could have generalized this to include the invincibilty time after damage, but decided against it. 
