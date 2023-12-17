@@ -16,6 +16,7 @@ import Attack from './attack.js';
 import DirtBackground from './Terrain/dirtBackground.js';
 import Well from './Terrain/well.js';
 import WellBackground from './Terrain/WellBackground.js';
+import Renderer from '../engine/renderer.js';
 
 // Define a class Level that extends the Game class from the engine
 class Level extends Game {
@@ -156,18 +157,34 @@ class Level extends Game {
 
 				if (tile.getComponent(Health).HP <= 0) {
 
-					this.gameObjects.unshift(new DirtBackground(tile.x, tile.y)) // Add background tile in place of dead tile. uses unshift to add it to the front. 
+					
+					
 					this.removeGameObject(tile);
 
 					if (tile instanceof GoldVein) {
 
-						this.addGameObject(new Gold(tile.x, tile.y));
+						this.addGameObject(new Gold(
+							tile.x + (tile.getComponent(Renderer).width / 2), 
+							tile.y + (tile.getComponent(Renderer).height / 2)
+						));
+
+						// See collectable constructor for details.
+						// console.log(//tile.x, tile.x + (tile.getComponent(Renderer).width / 2), 
+						// tile.y, tile.y + (tile.getComponent(Renderer).height / 2))
 					}
 
 					if (tile instanceof GemVein) {
 
-						this.addGameObject(new Gem(tile.x, tile.y));
+						this.addGameObject(new Gem(
+							tile.x + (tile.getComponent(Renderer).width / 2), 
+							tile.y + (tile.getComponent(Renderer).height / 2)
+						));
 					}
+
+					this.gameObjects.unshift(new DirtBackground(tile.x, tile.y)) // Add background tile in place of dead tile. uses unshift to add it to the front. 
+
+					
+
 				}
 			}
 		}
