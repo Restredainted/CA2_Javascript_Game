@@ -5,12 +5,23 @@ const Images = {
 	enemy: new Image(), // The Image instance for the enemy.
 	coin: new Image(), // The Image instance for gold coins.
 	gem: new Image(), // The Image instance for gems.
-	dirt: new Image(), // The Image instance for dirt.
-	grass: new Image(), // The Image instance for grass.
-	rock: new Image(), // The Image instance for rock.
-	veinGold: new Image(), // The Image instance for gold veins.
-	veinGem: new Image(), // The Image instance for gem veins. 
-	dirtBackground: new Image(), // image for Any dug tile background fill. 
+	dirt1: new Image(), // The Image instance for a dirt variant.
+	dirt2: new Image(), // The Image instance for a dirt variant.
+	dirt3: new Image(), // The Image instance for a dirt variant.
+	grass1: new Image(), // The Image instance for a grass variant.
+	grass2: new Image(), // The Image instance for a grass variant.
+	grass3: new Image(), // The Image instance for a grass variant.
+	rock1: new Image(), // The Image instance for a rock variant.
+	rock2: new Image(), // The Image instance for a rock variant.
+	veinGold1: new Image(), // The Image instance for a gold vein variant.
+	veinGold2: new Image(), // The Image instance for a gold vein variant.
+	veinGold3: new Image(), // The Image instance for a gold vein variant.
+	veinGem1: new Image(), // The Image instance for a gem vein variant. 
+	veinGem2: new Image(), // The Image instance for a gem vein variant. 
+	veinGem3: new Image(), // The Image instance for a gem vein variant. 
+	dirtBackground1: new Image(), // image for a dug tile background fill variant. 
+	dirtBackground2: new Image(), // image for a dug tile background fill variant. 
+	dirtBackground3: new Image(), // image for a dug tile background fill variant. 
 	well: new Image(), // The Image for the well side walls.
 	wellBackground: new Image(), // The Image for the well back wall. 
 	cabin: new Image(), // The Image instance for the cabin.
@@ -39,23 +50,34 @@ Images.coin.src = './resources/images/Collectables/SP_Coin.png';
 // Set the source of the Gem Image.
 Images.gem.src = './resources/images/Collectables/SP_Gem.png';
 
-// Set the source of the dirt Image.
-Images.dirt.src = './resources/images/Terrain/SP_Dirt.png';
+// Set the source of the dirt Image variants.
+Images.dirt1.src = './resources/images/Terrain/SP_Dirt_1.png';
+Images.dirt2.src = './resources/images/Terrain/SP_Dirt_2.png';
+Images.dirt3.src = './resources/images/Terrain/SP_Dirt_3.png';
 
-// Set the source of the grass Image.
-Images.grass.src = './resources/images/Terrain/SP_Grass.png';
+// Set the source of the grass Image variants.
+Images.grass1.src = './resources/images/Terrain/SP_Grass_1.png';
+Images.grass2.src = './resources/images/Terrain/SP_Grass_2.png';
+Images.grass3.src = './resources/images/Terrain/SP_Grass_3.png';
 
-// Set the source of the Rock Image.
-Images.rock.src = './resources/images/Terrain/SP_Rock.png';
+// Set the source of the Rock Image variants.
+Images.rock1.src = './resources/images/Terrain/SP_Rock_1.png';
+Images.rock2.src = './resources/images/Terrain/SP_Rock_2.png';
 
-// set the source of the gold vein Image.
-Images.veinGold.src = './resources/images/Terrain/SP_VeinGold.png';
+// set the source of the gold vein Image variants.
+Images.veinGold1.src = './resources/images/Terrain/SP_Vein_Gold_1.png';
+Images.veinGold2.src = './resources/images/Terrain/SP_Vein_Gold_2.png';
+Images.veinGold3.src = './resources/images/Terrain/SP_Vein_Gold_3.png';
 
-// Set the source of the gem vein Image.
-Images.veinGem.src = './resources/images/Terrain/SP_VeinGem.png';
+// Set the source of the gem vein Image variants.
+Images.veinGem1.src = './resources/images/Terrain/SP_Vein_Gem_1.png';
+Images.veinGem2.src = './resources/images/Terrain/SP_Vein_Gem_2.png';
+Images.veinGem3.src = './resources/images/Terrain/SP_Vein_Gem_3.png';
 
-// Set the srouce of the dirt background Image. 
-Images.dirtBackground.src = './resources/images/Terrain/SP_Dirt_Background.png';
+// Set the srouce of the dirt background Image variants. 
+Images.dirtBackground1.src = './resources/images/Terrain/SP_Dirt_Background_1.png';
+Images.dirtBackground2.src = './resources/images/Terrain/SP_Dirt_Background_2.png';
+Images.dirtBackground3.src = './resources/images/Terrain/SP_Dirt_Background_3.png';
 
 // Set the srouce of the well wall Image. 
 Images.well.src = './resources/images/Terrain/SP_Well_Wall.png';
