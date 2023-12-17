@@ -12,6 +12,8 @@ import ParticleSystem from '../engine/particleSystem.js';
 import Health from '../engine/health.js';
 import Raycast from '../engine/raycast.js';
 import Attack from './attack.js';
+import Cabin from './Terrain/cabin.js';
+import CabinDoor from './Terrain/cabinDoorCheck.js';
 
 // Defining a class Player that extends GameObject
 class Player extends GameObject {
@@ -34,6 +36,7 @@ class Player extends GameObject {
 
 		// Initialize all the player specific properties
 		this.direction = 1;
+		this.pocket = 0;
 		this.score = 0;
 		this.isOnGround = false;
 		this.isJumping = false;
@@ -156,7 +159,7 @@ class Player extends GameObject {
 		// Handle collisions with tiles
 		this.isOnGround = false;  // Reset this before checking collisions with tiles
 
-		//Was used trying to figure out a fix for the physics always puut on top issue. 
+		// Was used trying to figure out a fix for the physics always put on top issue. 
 		if(!this.isOnGround) {
 
 		 	physics.gravity.y = 750;
@@ -169,7 +172,16 @@ class Player extends GameObject {
 			// Player should only collide with hard tiles, not background tiles. 
 			// There's bound to be a simpler sollution to this possibly using tags, 
 			// but this is my solution for the time being. 
-			if (tile instanceof TileBackground) {} 
+			if (tile instanceof TileBackground) {
+
+				if (tile instanceof Cabin) {
+
+					if (physics.isColliding(tile.getComponent(CabinDoor))) {
+
+						this.bankTreasure();
+					}
+				}
+			} 
 			
 			else { 
 
@@ -224,11 +236,11 @@ class Player extends GameObject {
 		}
 
 		// Check if player has collected all collectables
-		if (this.score >= 9) {
+		// if (this.score >= 9) {
 
-			console.log('You win!');
-			location.reload();
-		}
+		// 	console.log('You win!');
+		// 	location.reload();
+		// }
 
 		super.update(deltaTime);
 	}
@@ -395,14 +407,24 @@ class Player extends GameObject {
 	
 	collect(collectable) {
 		// Handle collectable pickup
-		this.score += collectable.value;
-		console.log(`Score: ${this.score}`);
+		this.pocket += collectable.value;
+		console.log(`Pocket: ${this.pocket}`);
 		this.emitCollectParticles(collectable);
 	}
 
-	emitCollectParticles() {
+	/**
+	 * Handles storing of the players pocket into the bank (score).
+	 */
+	bankTreasure() {
+
+		this.score += this.pocket;
+		this.pocket = 0;
+		console.log(`Score: ${this.score}`);
+	}
+
+	emitCollectParticles(collectable) {
 		// Create a particle system at the player's position when a collectable is collected
-		const particleSystem = new ParticleSystem(this.x, this.y, 'yellow', 20, 1, 0.5);
+		const particleSystem = new ParticleSystem(collectable.x, collectable.y, 'yellow', 20, 1, 0.5);
 		this.game.addGameObject(particleSystem);
 	}
 
@@ -418,11 +440,13 @@ class Player extends GameObject {
 		this.isOnGround = false;
 		this.isJumping = false;
 		this.jumpTimer = 0;
+		this.pocket = 0;
 	}
 
 	resetGame() {
 		// Reset the game state, which includes the player's state
 		this.health.HP = this.health.maxHP;
+		this.pocket = 0;
 		this.score = 0;
 		this.resetPlayerState();
 	}
